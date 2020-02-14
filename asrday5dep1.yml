@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: asrdepday5
+  name: asrdepday5
+  namespace: arajasu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: asrdepday5
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: asrdepday5
+    spec:
+      containers:
+      - image: arajasu/asrday5:v1
+        name: asrday5
+        imagePullPolicy: Always
+        resources: {}
+status: {}
+     
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: asrdepsvc2
+  name: asrdepsvc2
+  namespace: arajasu
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: asrdepday5
+  type: NodePort
+status:
+  loadBalancer: {}
